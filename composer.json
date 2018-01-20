@@ -1,0 +1,12 @@
+{
+  "name":"mhernand/328/hello",
+  "authors": [
+    {
+      "name": "Mason Hernandez",
+      "email": "mhernandez58@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
