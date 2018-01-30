@@ -16,9 +16,9 @@
     <title>Dating Site</title>
 </head>
 <body>
-    <h1>Profile Setup Page</h1>
+    <h1>Personal Setup Page</h1>
     <button class="btn btn-primary mt-4">
-        <a href="./interests">next</a>
+        <a href="./profile">next</a>
     </button>
 </body>
 </html>

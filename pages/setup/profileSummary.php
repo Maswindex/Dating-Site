@@ -1,10 +1,10 @@
 <?php
 /**
- * User: Mason Hernandez
+ * Created by PhpStorm.
+ * User: mason
  * Date: 1/27/2018
- * Time: 4:56 PM
+ * Time: 5:02 PM
  */
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,9 +16,6 @@
     <title>Dating Site</title>
 </head>
 <body>
-    <h1>Profile Setup Page</h1>
-    <button class="btn btn-primary mt-4">
-        <a href="./interests">next</a>
-    </button>
+    <h1>Profile Summary Page</h1>
 </body>
 </html>
