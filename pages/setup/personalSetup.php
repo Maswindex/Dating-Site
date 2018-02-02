@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -29,7 +30,7 @@
     <!--Navbar-->
     <nav class="navbar navbar-light bg-faded mb-4" id="navbar">
         <h4 class="navbar-text p-0">
-            My Dating Site
+            My Dating Site hello
         </h4>
     </nav>
 
@@ -40,31 +41,51 @@
 
             <form action="#" method="post">
                 <div class="row">
+
+                    <!--Placed outside col-8 to lower privacy policy visually-->
                     <div class="col-12">
-                        <label for="fname" class="form-label font-weight-bold" mb-1>First Name</label>
+                        <label for="fname" class="form-label font-weight-bold mb-1" >
+                            First Name <span class="text-danger">{{@fname_err}}</span>
+                        </label>
                     </div>
+
+                    <!--Most inputs except phone number-->
                     <div class="col-8">
 
-                        <input class="form-control mb-2" type="text" value="" name="fname" id="fname">
+                        <!--First Name-->
+                        <input class="form-control mb-2" type="text" value="{{@fname}}" name="fname" id="fname"
+                               minlength="1">
 
-                        <label for="lname" class="form-label font-weight-bold mb-1">Last Name</label>
-                        <input class="form-control mb-2" type="text" value="" name="lname" id="lname">
+                        <!--Last Name-->
+                        <label for="lname" class="form-label font-weight-bold mb-1">
+                            Last Name <span class="text-danger">{{@lname_err}}</span>
+                        </label>
+                        <input class="form-control mb-2" type="text" value="{{@lname}}" name="lname" id="lname"
+                            minlength="1">
 
-                        <label for="age" class="form-label font-weight-bold mb-1" name="age">Age</label>
-                        <input class="form-control mb-2" type="number" value="" name="age" id="age">
+                        <!--Age-->
+                        <label for="age" class="form-label font-weight-bold mb-1">
+                            Age <span class="text-danger">{{@age_err}}</span>
+                        </label>
+                        <input class="form-control mb-2" type="number" value="{{@age}}" name="age" id="age"
+                            min="18" max="110">
 
-                        <label for="gender" class="form-label font-weight-bold mb-0" name="gender">Gender</label><br>
+                        <label for="gender" class="form-label font-weight-bold mb-0">
+                            Gender <span class="text-danger">{{@gender_err}}</span>
+                        </label><br>
+                        <!--Male-->
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="radio"
-                                       name="gender" id="gender" value=""> Male
+                                       name="gender" value="male"> Male
                             </label>
                         </div>
 
+                        <!--Female-->
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="radio"
-                                       name="gender" id="gender" value=""> Female
+                                       name="gender" value="female"> Female
                             </label>
                         </div>
 
@@ -79,9 +100,12 @@
                         </div>
                     </div> <!--div class="col-4"-->
 
+                    <!--Phone Number-->
                     <div class="col-8">
-                        <label for="example-text-input" class="form-label font-weight-bold mb-1">Phone Number</label>
-                        <input class="form-control" type="text" value=""
+                        <label for="phone" class="form-label font-weight-bold mb-1">
+                            Phone Number <span class="text-danger">{{@phone_err}}</span>
+                        </label>
+                        <input class="form-control" type="text" value="{{@phone}}" name="phone"
                                required pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}">
                     </div> <!--div class="col-4"-->
 
@@ -89,7 +113,7 @@
                     <!--Submit Button-->
                     <div class="col-4">
                         <div class="text-right">
-                            <input type="submit" value="next" class="btn btn-primary my-4">
+                            <input type="submit" value="next" name="submit" class="btn btn-primary my-4">
                         </div>
                     </div> <!--div class="col-4"-->
 
