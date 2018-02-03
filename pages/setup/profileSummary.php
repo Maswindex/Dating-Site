@@ -1,11 +1,3 @@
-<?php
-/**
- * User: Mason Hernandez
- * Date: 1/27/2018
- * Time: 4:56 PM
- */
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,17 +7,13 @@
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/home-styles.css">
-    <style>
-        #head, #navbar {
-            background-color: lightgrey !important;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/home-styles.css">
+</head>
 <body>
 <div class="container mx-auto px-0 ">
 
     <!--Navbar-->
-    <nav class="navbar navbar-light bg-faded mb-4" id="navbar">
+    <nav class="navbar navbar-light bg-faded mb-4 py-2" id="navbar">
         <h4 class="navbar-text">
             My Dating Site
         </h4>
@@ -33,10 +21,29 @@
 
     <!-- Main Content Section -->
     <div class="row">
-        <div class="mx-auto container p-4 border border-secondary rounded">
-            <h1>Profile Setup Summary Page</h1>
-            <div class="text-right">
+        <div class="col col-8 col-offset-2 mx-auto container
+                    p-4 border border-secondary rounded">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">Name: {{@fname}} {{@lname}}</li>
+                        <li class="list-group-item">Gender: {{@gender}}</li>
+                        <li class="list-group-item">Age: {{@age}}</li>
+                        <li class="list-group-item">Email: {{@email}}</li>
+                        <li class="list-group-item">State: {{@state}}</li>
+                        <li class="list-group-item">Seeking: {{@seeking}}</li>
+                        <li class="list-group-item">Interests: {{@interests}}</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-12 text-center">
+                    <img src="../images/account_icon.png" alt="male silhouette">
+                    <h3 class="text-left">Biography</h3><br>
+                    <p>{{@bio}}</p>
+                </div>
             </div>
+
+
         </div>
     </div>
 

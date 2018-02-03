@@ -1,43 +1,28 @@
-<?php
-/**
- * User: Mason Hernandez
- * Date: 1/27/2018
- * Time: 4:56 PM
- */
-
-
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/home-styles.css">
-    <style>
-        #head, #navbar {
-            background-color: lightgrey !important;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/home-styles.css">
+</head>
 <body>
-<div class="container mx-auto px-0 ">
+<div class="container mx-auto px-0">
 
     <!--Navbar-->
-    <nav class="navbar navbar-light bg-faded mb-4" id="navbar">
-        <h4 class="navbar-text p-0">
-            My Dating Site hello
+    <nav class="navbar navbar-light bg-faded mb-4 py-2" id="navbar">
+        <h4 class="navbar-text">
+            My Dating Site
         </h4>
     </nav>
 
     <!-- Main Content Section -->
     <div class="row">
         <div class="mx-auto container p-4 border border-secondary rounded">
-            <h1>Personal Setup Page</h1><hr>
+            <h1>Personal Information</h1><hr>
 
             <form action="#" method="post">
                 <div class="row">
@@ -70,24 +55,35 @@
                         <input class="form-control mb-2" type="number" value="{{@age}}" name="age" id="age"
                             min="18" max="110">
 
-                        <label for="gender" class="form-label font-weight-bold mb-0">
-                            Gender <span class="text-danger">{{@gender_err}}</span>
-                        </label><br>
-                        <!--Male-->
-                        <div class="form-check form-check-inline">
+                        <!--Seeking-->
+                        <label class="form-label font-weight-bold mt-2">
+                            Gender <span class="text-danger">{{@gender_err}}</span></label><br>
+                        <div class="form-check form-check-inline"><!--Male-->
                             <label class="form-check-label">
-                                <input class="form-check-input" type="radio"
-                                       name="gender" value="male"> Male
-                            </label>
-                        </div>
-
-                        <!--Female-->
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="radio"
-                                       name="gender" value="female"> Female
-                            </label>
-                        </div>
+                                <check if="{{@gender}}==male">
+                                    <true>
+                                        <input class="form-check-input" type="radio"
+                                               name="gender" value="male" checked="checked">
+                                        Male
+                                    </true>
+                                    <false>
+                                        <input class="form-check-input" type="radio"
+                                               name="gender" value="male"> Male
+                                    </false>
+                                </check></label></div>
+                                <div class="form-check form-check-inline"><!--Female-->
+                                    <label class="form-check-label">
+                                        <check if="{{@gender}}==female">
+                                            <true>
+                                                <input class="form-check-input" type="radio"
+                                                       name="gender" value="female" checked="checked">
+                                                Female
+                                            </true>
+                                            <false>
+                                                <input class="form-check-input" type="radio"
+                                                    name="gender" value="female"> Female
+                                            </false>
+                                        </check></label></div>
 
                     </div> <!--<div class="col-8">-->
 
@@ -102,7 +98,7 @@
 
                     <!--Phone Number-->
                     <div class="col-8">
-                        <label for="phone" class="form-label font-weight-bold mb-1">
+                        <label class="form-label font-weight-bold mb-1">
                             Phone Number <span class="text-danger">{{@phone_err}}</span>
                         </label>
                         <input class="form-control" type="text" value="{{@phone}}" name="phone"

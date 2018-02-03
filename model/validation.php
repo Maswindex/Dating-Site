@@ -4,7 +4,8 @@ $errors = array();
 global $f3;
 
 //exists so code doesn't break
-$fname = $lname = $age = $gender = $phone = $email = $state = $outdoor = $indoor = '';
+$fname = $lname = $age = $gender = $phone = $email = $state = "";
+$outdoor = $indoor = array();
 
 
 function validName($name)
@@ -19,49 +20,43 @@ function validAge($age)
 
 function validGender($gender)
 {
-    return ($gender == 'male' || $gender == 'female')||!empty($gender);
+    return ($gender == 'male' || $gender == 'female')&&!empty($gender);
 }
 
 function validPhone($phone)
 {
     $pattern = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
 
-    return preg_match($pattern, $phone)||!empty($phone);
+    return preg_match($pattern, $phone)&&!empty($phone);
 }
 
 function validEmail($email)
 {
-    $pattern = "/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/";
+    $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
 
-    if (!preg_match($pattern, $email)||empty($email)) {
-        $errors['email'] = 'Please enter a valid email';
-    }
+    return preg_match($pattern, $email)&&!empty($email);
 }
 
 function validState($state, $f3)
 {
-    if(!in_array($state, $f3->get('$states'))||empty($state)){
-        $errors['state'] = 'Please select from the states presented';
-    }
+    return in_array($state, $f3->get('states'))&&!empty($state);
 }
 
 function validOutdoor($selection, $f3)
 {
-    if(!in_array($selection, $f3->get('outdoor'))||empty($selection)) {
-        $errors['outdoor'] = 'Please select from the outdoor options presented';
-    }
+    return in_array($selection, $f3->get('outdoor_ops'))&&!empty($selection);
 }
 
 function validIndoor($selection, $f3)
 {
-    if(!in_array($selection, $f3->get('indoor'))||empty($selection)) {
-        $errors['indoor'] = 'Please select from the indoor options presented';
-    }
+    return in_array($selection, $f3->get('indoor_ops'))&&!empty($selection);
 }
 
 if(isset($_POST['submit'])){
 
     switch ($stage){
+
+        //On the personal info setup page
         case 'personal':
 
             //strip of possible tages
@@ -99,12 +94,11 @@ if(isset($_POST['submit'])){
             //no errors
             if(sizeof($errors) == 0){
 
-                //store values in session variables
                 $_SESSION['fname'] = $fname;
-                $_SESSION['lname'] =  $lname;
+                $_SESSION['lname'] = $lname;
                 $_SESSION['age'] = $age;
-                $_SESSION['gender'] =  $gender;
-                $_SESSION['phone'] =  $phone;
+                $_SESSION['gender'] = $gender;
+                $_SESSION['phone'] = $phone;
 
                 //change the page
                 header( "Location: ./profile" );
@@ -118,6 +112,7 @@ if(isset($_POST['submit'])){
                 }
             } break;
 
+        //On the profile setup page
         case 'profile':
 
             $email = strip_tags($_POST['email']);
@@ -130,17 +125,25 @@ if(isset($_POST['submit'])){
             $f3->set('seeking', $seeking);
             $f3->set('bio', $bio);
 
-            validEmail($email);
-            validState($state, $f3);
-            validGender($seeking);
+            if(!validEmail($email)){
+                $errors['email'] = 'Please enter a valid email';
+            }
+
+            if(!validState($state, $f3)){
+                $errors['state'] = 'Please select from the states presented';
+            }
+
+            if(!validGender($seeking)){
+                $errors['seeking'] = 'Please enter a valid gender';
+            }
 
             //no errors
             if(sizeof($errors) == 0){
 
-                $_SESSION('email', $email);
-                $_SESSION('state', $state);
-                $_SESSION('seeking', $seeking);
-                $_SESSION('bio', $bio);
+                $_SESSION['email'] = $email;
+                $_SESSION['state'] = $state;
+                $_SESSION['seeking'] = $seeking;
+                $_SESSION['bio'] = $bio;
 
                 //change the page
                 header( "Location: ./interests" );
@@ -151,26 +154,43 @@ if(isset($_POST['submit'])){
                 }
             }break;
 
+        //On the interest setup page
         case 'interests':
 
-            $outdoor = strip_tags($_POST['outdoor']);
-            $indoor = strip_tags($_POST['indoor']);
+            if(empty($_POST['outdoor'])||empty($_POST['indoor'])){
+                $errors['no_select'] = 'Please select at least one of each option';
+            } else {
 
-            validIndoor($indoor, $f3);
-            validOutdoor($outdoor, $f3);
+                $outdoor_choices = $_POST['outdoor'];
+                $indoor_choices = $_POST['indoor'];
+
+                foreach ($outdoor_choices as $activity){
+                    $outdoor_act = strip_tags($activity);
+                    if(!validOutdoor($outdoor_act, $f3)){
+                        $errors['outdoor'] = 'Please select from the outdoor options presented';
+                    }
+                }
+
+                foreach ($indoor_choices as $activity){
+                    $indoor_act = strip_tags($activity);
+                    if(!validIndoor($indoor_act, $f3)){
+                        $errors['indoor'] = 'Please select from the indoor options presented';
+                    }
+                }
+            }
 
             //no errors
             if(sizeof($errors) == 0){
 
-                $_SESSION('outdoor', $outdoor);
-                $_SESSION('indoor', $indoor);
+                $_SESSION['outdoor'] = $outdoor_choices;
+                $_SESSION['indoor'] = $indoor_choices;
 
                 //change the page
                 header( "Location: ./setup-summary" );
             } else {
                 //store variables in fat free global
                 foreach ($errors as $error=>$message ){
-                    $f3->set($error, $message);
+                    $f3->set($error."_err", $message);
                 }
             }break;
     }

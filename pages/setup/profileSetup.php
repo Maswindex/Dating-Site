@@ -1,11 +1,3 @@
-<?php
-/**
- * User: Mason Hernandez
- * Date: 1/27/2018
- * Time: 4:56 PM
- */
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,17 +7,13 @@
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/home-styles.css">
-    <style>
-        #head, #navbar {
-            background-color: lightgrey !important;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/home-styles.css">
+</head>
 <body>
 <div class="container mx-auto px-0 ">
 
     <!--Navbar-->
-    <nav class="navbar navbar-light bg-faded mb-4" id="navbar">
+    <nav class="navbar navbar-light bg-faded mb-4 py-2" id="navbar">
         <h4 class="navbar-text">
             My Dating Site
         </h4>
@@ -34,12 +22,86 @@
     <!-- Main Content Section -->
     <div class="row">
         <div class="mx-auto container p-4 border border-secondary rounded">
-            <h1>Profile Setup Page</h1>
-            <div class="text-right">
-                <a href="./interests" class="btn btn-primary my-4">
-                    Next
-                </a>
-            </div>
+            <h1>Profile</h1><hr>
+
+            <form action="#" method="post">
+                <div class="row">
+
+                    <!--Most inputs except phone number-->
+                    <div class="col-6">
+
+                        <!--Email-->
+                        <label for="email" class="form-label font-weight-bold mb-1" >
+                            Email <span class="text-danger">{{@email_err}}</span></label>
+                        <input class="form-control mb-2" type="text" value="{{@email}}" name="email" id="email"
+                               minlength="1">
+
+                        <!--State-->
+                        <label class="form-label font-weight-bold mb-1">
+                            State <span class="text-danger">{{@state_err}}</span></label><br>
+                        <select class="custom-select" name="state">
+                            <option>Select a state</option>
+                            <repeat group="{{@states}}" value="{{@indState}}">
+
+                                <!--Previouly selected option-->
+                                <check if="{{@indState}}=={{@state}}">
+                                    <option value="{{@indState}}" selected>{{@indState}}</option>
+                                </check>
+                                <option value="{{@indState}}">{{@indState}}</option>
+                            </repeat>
+                        </select><br>
+
+                        <!--Seeking-->
+                        <label class="form-label font-weight-bold mt-2">
+                            Seeking <span class="text-danger">{{@seeking_err}}</span></label><br>
+                        <div class="form-check form-check-inline"><!--Male-->
+                            <label class="form-check-label">
+                                <check if="{{@seeking}}==male">
+                                    <true>
+                                        <input class="form-check-input" type="radio"
+                                               name="seeking" value="male" checked="checked">
+                                        Male</label></div>
+                                    </true>
+                                    <false>
+                                        <input class="form-check-input" type="radio"
+                                               name="seeking" value="male"> Male
+                                    </false>
+                                </check></label></div>
+                        <div class="form-check form-check-inline"><!--Female-->
+                            <label class="form-check-label">
+                                <check if="{{@seeking}}==female">
+                                    <true>
+                                        <input class="form-check-input" type="radio"
+                                               name="seeking" value="female" checked="checked">
+                                        Female</label></div>
+                                    </true>
+                                    <false>
+                                        <input class="form-check-input" type="radio"
+                                               name="seeking" value="female"> Female
+                                    </false>
+                                </check></label></div>
+
+
+                    </div> <!--<div class="col-6">-->
+
+                    <!-- Privacy Policy -->
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-labl font-weight-bold">Bio</label>
+                            <textarea class="form-control" rows="4" name="bio">{{@bio}}</textarea>
+                        </div>
+                    </div> <!--div class="col-4"-->
+
+
+                    <!--Submit Button-->
+                    <div class="col-12">
+                        <div class="text-right">
+                            <input type="submit" value="next" name="submit" class="btn btn-primary my-4">
+                        </div>
+                    </div> <!--div class="col-4"-->
+
+                </div> <!--<div class="row">-->
+            </form> <!--End form-->
         </div>
     </div>
 

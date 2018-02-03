@@ -19,9 +19,9 @@ $f3->set('states', array('Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia',
     'Virgin Islands', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming'));
 
-$f3->set('outoor', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'));
+$f3->set('outdoor_ops', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'));
 
-$f3->set('indoor', array('tv', 'movies', 'cooking', 'puzzles', 'reading', 'playing cards', 'board games', 'video games'));
+$f3->set('indoor_ops', array('tv', 'movies', 'cooking', 'puzzles', 'reading', 'playing cards', 'board games', 'video games'));
 
 //Define a default route
 $f3->route('GET /', function() {
@@ -49,6 +49,28 @@ $f3->route('GET|POST /setup/@part', function($f3, $params) {
             echo Template::instance()->render('pages/setup/interestsSetup.php');
             break;
         case('setup-summary'):
+
+            //after setup pull from session for local use
+            $f3->set('fname', $_SESSION['fname']);
+            $f3->set('lname', $_SESSION['lname']);
+            $f3->set('age', $_SESSION['age']);
+            $f3->set('gender', $_SESSION['gender']);
+            $f3->set('phone', $_SESSION['phone']);
+            $f3->set('email', $_SESSION['email']);
+            $f3->set('seeking', $_SESSION['seeking']);
+            $f3->set('state', $_SESSION['state']);
+            $f3->set('bio', $_SESSION['bio']);
+
+            $interests = "";
+
+            //loops through the multiple interest options and adds the selected
+            foreach ($_SESSION['outdoor'] as $interest)
+                $interests = $interests.', '.$interest;
+            foreach ($_SESSION['indoor'] as $interest)
+                $interests = $interests.', '.$interest;
+            $interests = substr($interests, 1);
+            $f3->set('interests', $interests);
+
             echo Template::instance()->render('pages/setup/profileSummary.php');
     }
 });
