@@ -1,3 +1,11 @@
+<!--
+    author: Mason Hernandez
+    date: 02/02/2018
+    file: personalSetup.php
+
+    This file contains the form layout for the personal information
+    part of setting up an account on the Dating-Site
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +38,7 @@
                     <!--Placed outside col-8 to lower privacy policy visually-->
                     <div class="col-12">
                         <label for="fname" class="form-label font-weight-bold mb-1" >
-                            First Name <span class="text-danger">{{@fname_err}}</span>
+                            First Name <small class="text-danger">{{@fname_err}}</small>
                         </label>
                     </div>
 
@@ -43,21 +51,21 @@
 
                         <!--Last Name-->
                         <label for="lname" class="form-label font-weight-bold mb-1">
-                            Last Name <span class="text-danger">{{@lname_err}}</span>
+                            Last Name <small class="text-danger">{{@lname_err}}</small>
                         </label>
                         <input class="form-control mb-2" type="text" value="{{@lname}}" name="lname" id="lname"
                             minlength="1">
 
                         <!--Age-->
                         <label for="age" class="form-label font-weight-bold mb-1">
-                            Age <span class="text-danger">{{@age_err}}</span>
+                            Age <small class="text-danger">{{@age_err}}</small>
                         </label>
                         <input class="form-control mb-2" type="number" value="{{@age}}" name="age" id="age"
                             min="18" max="110">
 
                         <!--Seeking-->
                         <label class="form-label font-weight-bold mt-2">
-                            Gender <span class="text-danger">{{@gender_err}}</span></label><br>
+                            Gender <small class="text-danger">{{@gender_err}}</small></label><br>
                         <div class="form-check form-check-inline"><!--Male-->
                             <label class="form-check-label">
                                 <check if="{{@gender}}==male">
@@ -99,7 +107,7 @@
                     <!--Phone Number-->
                     <div class="col-8">
                         <label class="form-label font-weight-bold mb-1">
-                            Phone Number <span class="text-danger">{{@phone_err}}</span>
+                            Phone Number <small class="text-danger">{{@phone_err}}</small>
                         </label>
                         <input class="form-control" type="text" value="{{@phone}}" name="phone"
                                required pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}">

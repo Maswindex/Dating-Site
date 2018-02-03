@@ -1,3 +1,11 @@
+<!--
+    author: Mason Hernandez
+    date: 02/02/2018
+    file: profileSummary.php
+
+    this file contains the form layout for the the summary of
+    setting up  profile in the Dating-Site
+-->
 <!DOCTYPE html>
 <html>
 <head>

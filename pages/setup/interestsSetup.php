@@ -1,3 +1,11 @@
+<!--
+    author: Mason Hernandez
+    date: 02/02/2018
+    file: interestsSetup.php
+
+    This file contains the form layout for the interests
+    part of setting up an account on the Dating-Site
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +30,7 @@
     <!-- Main Content Section -->
     <div class="row">
         <div class="mx-auto container p-4 border border-secondary rounded">
-            <h1>Interests</h1><h5>{{@no_select_err}} {{@indoor_err}} {{@outdoor_err}}</h5><hr>
+            <h1>Interests</h1><small class="text-danger">{{@no_select_err}} {{@indoor_err}} {{@outdoor_err}}</small><hr>
 
             <form action="#" method="post">
                 <div class="row p-4">

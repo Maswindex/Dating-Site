@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<!--
+    author: Mason Hernandez
+    date: 02/02/2018
+    file: profileSetup.php
+
+    This file contains the form layout for the profile information
+    part of setting up an account on the Dating-Site
+--><!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -32,13 +39,13 @@
 
                         <!--Email-->
                         <label for="email" class="form-label font-weight-bold mb-1" >
-                            Email <span class="text-danger">{{@email_err}}</span></label>
+                            Email <small class="text-danger">{{@email_err}}</small></label>
                         <input class="form-control mb-2" type="text" value="{{@email}}" name="email" id="email"
                                minlength="1">
 
                         <!--State-->
                         <label class="form-label font-weight-bold mb-1">
-                            State <span class="text-danger">{{@state_err}}</span></label><br>
+                            State <small class="text-danger">{{@state_err}}</small></label><br>
                         <select class="custom-select" name="state">
                             <option>Select a state</option>
                             <repeat group="{{@states}}" value="{{@indState}}">
@@ -53,7 +60,7 @@
 
                         <!--Seeking-->
                         <label class="form-label font-weight-bold mt-2">
-                            Seeking <span class="text-danger">{{@seeking_err}}</span></label><br>
+                            Seeking <small class="text-danger">{{@seeking_err}}</small></label><br>
                         <div class="form-check form-check-inline"><!--Male-->
                             <label class="form-check-label">
                                 <check if="{{@seeking}}==male">

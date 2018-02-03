@@ -1,4 +1,12 @@
 <?php
+/**
+ * author: Mason Hernandez
+ * date: 02/02/2018
+ * file: index.php
+ *
+ * this file contains all the logic for routing using the Fat-Free Framework
+ * in the Dating-Site
+ */
 
 //reuire the autoload file
 require_once('vendor/autoload.php');
