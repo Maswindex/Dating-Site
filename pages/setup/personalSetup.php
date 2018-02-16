@@ -105,13 +105,30 @@
                     </div> <!--div class="col-4"-->
 
                     <!--Phone Number-->
-                    <div class="col-8">
+                    <div class="col-8 mb-3">
                         <label class="form-label font-weight-bold mb-1">
-                            Phone Number <small class="text-danger">{{@phone_err}}</small>
+                            Phone Number (xxx-xxx-xxxx) <small class="text-danger">{{@phone_err}}</small>
                         </label>
-                        <input class="form-control" type="text" value="{{@phone}}" name="phone"
-                               required pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}">
-                    </div> <!--div class="col-4"-->
+                        <input class="form-control" type="text" value="{{@phone}}" name="phone">
+                    </div> <!--div class="col-8"-->
+
+                    <!--Phone Number-->
+                    <div class="col-8">
+                        <label class="font-weight-bold mb-1">
+                            Premium Membership?
+                        </label><br>
+                        <h6>
+                            Sign me up!
+                            <check if="{{@isPremium}}">
+                                <true>
+                                    <input class="form-check-label" type="checkbox" checked="checked" name="premium">
+                                </true>
+                                <false>
+                                    <input class="form-check-label" type="checkbox" name="premium">
+                                </false>
+                            </check>
+                        </h6>
+                    </div> <!--div class="col-8"-->
 
 
                     <!--Submit Button-->
