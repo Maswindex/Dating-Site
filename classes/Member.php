@@ -8,15 +8,16 @@
 
 class Member
 {
-    private $fname = "";
-    private $lname = "";
-    private $age = "";
-    private $gender = "";
-    private $phone = "";
-    private $email = "";
-    private $state = "";
-    private $seeking = "";
-    private $bio = "";
+    protected $fname = "";
+    protected $lname = "";
+    protected $age = "";
+    protected $gender = "";
+    protected $phone = "";
+    protected $email = "";
+    protected $state = "";
+    protected $seeking = "";
+    protected $bio = "";
+    protected $isPremium = false;
 
     function __construct($fname, $lname, $age, $gender, $phone)
     {
@@ -169,5 +170,21 @@ class Member
     public function setBio($bio)
     {
         $this->bio = $bio;
+    }
+
+    /**
+     *
+     */
+    public function setPremium($isPremium)
+    {
+        $this->isPremium = $isPremium;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPremium()
+    {
+        return $this->isPremium;
     }
 }
