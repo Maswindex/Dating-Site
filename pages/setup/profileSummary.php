@@ -40,18 +40,19 @@
                         <li class="list-group-item">Email: {{@email}}</li>
                         <li class="list-group-item">State: {{@state}}</li>
                         <li class="list-group-item">Seeking: {{@seeking}}</li>
-                        <li class="list-group-item">Interests: {{@interests}}</li>
+                        <check if="{{@isPremium}}">
+                            <li class="list-group-item">Interests: {{@interests}}</li>
+                        </check>
                     </ul>
                 </div>
 
+                <!--Displays Bio-->
                 <div class="col-md-6 col-12 text-center">
                     <img src="../images/account_icon.png" alt="male silhouette">
                     <h3 class="text-left">Biography</h3><br>
                     <p>{{@bio}}</p>
                 </div>
             </div>
-
-
         </div>
     </div>
 
