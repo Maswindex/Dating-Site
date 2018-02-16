@@ -2,6 +2,7 @@
 
 $errors = array();
 global $f3;
+session_start();
 
 //exists so code doesn't break
 $fname = $lname = $age = $gender = $phone = $email = $state = "";
@@ -44,34 +45,40 @@ function validState($state, $f3)
 
 function validOutdoor($selection, $f3)
 {
-    return in_array($selection, $f3->get('outdoor_ops'))&&!empty($selection);
+    return in_array($selection, PremiumMember::getOutdoor())&&!empty($selection);
 }
 
 function validIndoor($selection, $f3)
 {
-    return in_array($selection, $f3->get('indoor_ops'))&&!empty($selection);
+    return in_array($selection, PremiumMember::getIndoor())&&!empty($selection);
 }
 
 if(isset($_POST['submit'])){
+
+    $user;
 
     switch ($stage){
 
         //On the personal info setup page
         case 'personal':
 
-            //strip of possible tages
+            //strip of possible tags
             $fname = strip_tags($_POST['fname']);
             $lname = strip_tags($_POST['lname']);
             $age = strip_tags($_POST['age']);
             $gender = strip_tags($_POST['gender']);
             $phone = strip_tags($_POST['phone']);
 
+
             //stores in fat free global variables
+            //needed for sticky forms
             $f3->set('fname', $fname);
             $f3->set('lname', $lname);
             $f3->set('age', $age);
             $f3->set('gender', $gender);
             $f3->set('phone', $phone);
+            if(isset($_POST['premium']))
+                $f3->set('isPremium', true);
 
             //validate each input
             if(!validName($fname))
@@ -94,14 +101,29 @@ if(isset($_POST['submit'])){
             //no errors
             if(sizeof($errors) == 0){
 
+
+                /* Initial storing of variable in session variables
                 $_SESSION['fname'] = $fname;
                 $_SESSION['lname'] = $lname;
                 $_SESSION['age'] = $age;
                 $_SESSION['gender'] = $gender;
                 $_SESSION['phone'] = $phone;
+                */
+
+                //store the values to a new Member and store the member in session array
+                if(isset($_POST['premium'])){
+                    $user = new PremiumMember($fname, $lname, $age, $gender, $phone);
+                    $user->setPremium(true);
+                    $_SESSION['user'] = $user;
+                }
+
+                else
+                    $user = new Member($fname, $lname, $age, $gender, $phone);
+                    $_SESSION['user'] = $user;
 
                 //change the page
-                header( "Location: ./profile" );
+                //header( "Location: ./profile" );
+                $f3->reroute('./profile');
 
             //ya got errors
             } else {
@@ -120,6 +142,7 @@ if(isset($_POST['submit'])){
             $seeking = strip_tags($_POST['seeking']);
             $bio = strip_tags($_POST['bio']);
 
+            //needed to make forms sticky
             $f3->set('email', $email);
             $f3->set('state', $state);
             $f3->set('seeking', $seeking);
@@ -139,61 +162,75 @@ if(isset($_POST['submit'])){
 
             //no errors
             if(sizeof($errors) == 0){
-
-                $_SESSION['email'] = $email;
-                $_SESSION['state'] = $state;
-                $_SESSION['seeking'] = $seeking;
-                $_SESSION['bio'] = $bio;
+                $user = $_SESSION['user'];
+                $user->setEmail($email);
+                $user->setState($state);
+                $user->setSeeking($seeking);
+                $user->setBio($bio);
+                $_SESSION['user'] = $user;
 
                 //change the page
-                header( "Location: ./interests" );
+                if($user->isPremium())
+
+                    header( "Location: ./interests" );
+                else
+                    header( "Location: ./setup-summary" );
             } else {
+
                 //store errors in fat free global
-                foreach ($errors as $error=>$message ){
+                foreach ($errors as $error=>$message)
                     $f3->set($error."_err", $message);
-                }
-            }break;
+
+            } break;
 
         //On the interest setup page
         case 'interests':
 
+            $user = $_SESSION['user'];
+            $interests = [];
+
+            //double check they're not here by accident
+            if(!$user->isPremium()) $f3->reroute('./setup-summary');
+
+            //Displays an error if no selection was made
             if(empty($_POST['outdoor'])||empty($_POST['indoor'])){
                 $errors['no_select'] = 'Please select at least one of each option';
-            } else {
+            }
+            else {
 
-                $outdoor_choices = $_POST['outdoor'];
-                $indoor_choices = $_POST['indoor'];
-
-                foreach ($outdoor_choices as $activity){
+                //validation selections
+                foreach ($_POST['outdoor'] as $activity){
                     $outdoor_act = strip_tags($activity);
-                    if(!validOutdoor($outdoor_act, $f3)){
+                    print $outdoor_act.', ';
+                    $interests[] = $outdoor_act;
+                    if(!validOutdoor($outdoor_act, $f3))
                         $errors['outdoor'] = 'Please select from the outdoor options presented';
-                    }
                 }
 
-                foreach ($indoor_choices as $activity){
+                //validation selections
+                foreach ($_POST['indoor'] as $activity){
                     $indoor_act = strip_tags($activity);
-                    if(!validIndoor($indoor_act, $f3)){
+                    print $indoor_act.', ';
+                    $interests[] = $indoor_act;
+                    if(!validIndoor($indoor_act, $f3))
                         $errors['indoor'] = 'Please select from the indoor options presented';
-                    }
                 }
+                $user->setInterests($interests);
             }
 
             //no errors
             if(sizeof($errors) == 0){
+                //print_r($interests); echo '<--interests';
+                $_SESSION['user'] = $user;
 
-                $_SESSION['outdoor'] = $outdoor_choices;
-                $_SESSION['indoor'] = $indoor_choices;
 
                 //change the page
                 header( "Location: ./setup-summary" );
             } else {
                 //store variables in fat free global
-                foreach ($errors as $error=>$message ){
+                foreach ($errors as $error=>$message )
                     $f3->set($error."_err", $message);
-                }
-            }break;
+            }
+        break;
     }
-
-
 }
