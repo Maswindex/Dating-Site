@@ -27,9 +27,9 @@ $f3->set('states', array('Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia',
     'Virgin Islands', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming'));
 
-$f3->set('outdoor_ops', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'));
+$f3->set('outdoor_ops', PremiumMember::getOutdoor());
 
-$f3->set('indoor_ops', array('tv', 'movies', 'cooking', 'puzzles', 'reading', 'playing cards', 'board games', 'video games'));
+$f3->set('indoor_ops', PremiumMember::getIndoor());
 
 //Define a default route
 $f3->route('GET /', function() {
@@ -46,9 +46,9 @@ $f3->route('GET|POST /setup/@part', function($f3, $params) {
     include 'model/validation.php';
 
     switch($stage){
+
         case('personal'):
-            $temp = new Template();
-            echo $temp->render('pages/setup/personalSetup.php');
+            echo Template::instance()->render('pages/setup/personalSetup.php');
             break;
         case('profile'):
             echo Template::instance()->render('pages/setup/profileSetup.php');
@@ -58,26 +58,36 @@ $f3->route('GET|POST /setup/@part', function($f3, $params) {
             break;
         case('setup-summary'):
 
+            $user = $_SESSION['user'];
+
             //after setup pull from session for local use
-            $f3->set('fname', $_SESSION['fname']);
-            $f3->set('lname', $_SESSION['lname']);
-            $f3->set('age', $_SESSION['age']);
-            $f3->set('gender', $_SESSION['gender']);
-            $f3->set('phone', $_SESSION['phone']);
-            $f3->set('email', $_SESSION['email']);
-            $f3->set('seeking', $_SESSION['seeking']);
-            $f3->set('state', $_SESSION['state']);
-            $f3->set('bio', $_SESSION['bio']);
+            $f3->set('fname', $user->getFname());
+            $f3->set('lname', $user->getLname());
+            $f3->set('age', $user->getAge());
+            $f3->set('gender', $user->getGender());
+            $f3->set('phone', $user->getPhone());
+            $f3->set('email', $user->getEmail());
+            $f3->set('seeking', $user->getSeeking());
+            $f3->set('state', $user->getState());
+            $f3->set('bio', $user->getBio());
+            $f3->set('isPremium', $user->isPremium());
 
-            $interests = "";
+            if($f3->get('isPremium')) {
 
-            //loops through the multiple interest options and adds the selected
-            foreach ($_SESSION['outdoor'] as $interest)
-                $interests = $interests.', '.$interest;
-            foreach ($_SESSION['indoor'] as $interest)
-                $interests = $interests.', '.$interest;
-            $interests = substr($interests, 1);
-            $f3->set('interests', $interests);
+                $interests = "";
+                $userInterests = $user->getInterests();
+                //loops through the multiple interest options and adds the selected
+                foreach ($userInterests as $interest) {
+                    $interests = $interests.', '.$interest;
+                }
+
+
+                print $interests;
+
+                //gets rid of comma initially created
+                $interests = substr($interests, 1);
+                $f3->set('interests', $interests);
+            }
 
             echo Template::instance()->render('pages/setup/profileSummary.php');
     }
