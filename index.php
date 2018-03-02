@@ -76,6 +76,8 @@ $f3->route('GET|POST /setup/@part', function($f3, $params) {
             if($f3->get('isPremium'))
                 $f3->set('interests', $user->getInterests());
 
+            $database = new DatingDatabase();
+            $database->memberInsert($user);
             echo Template::instance()->render('pages/setup/profileSummary.php');
     }
 });

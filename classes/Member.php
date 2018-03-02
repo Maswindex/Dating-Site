@@ -17,6 +17,7 @@ class Member
     protected $state = "";
     protected $seeking = "";
     protected $bio = "";
+    protected $img = "";
     protected $isPremium = false;
 
     function __construct($fname, $lname, $age, $gender, $phone)
@@ -171,6 +172,23 @@ class Member
     {
         $this->bio = $bio;
     }
+
+    /**
+     * @return string
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param string $img
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
+
 
     /**
      *
