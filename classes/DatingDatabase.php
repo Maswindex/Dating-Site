@@ -67,9 +67,6 @@ class DatingDatabase
 
         //execute the statement
         $statement->execute();
-
-        $id = $dbh->lastInsertId();
-        echo "<p>Member $id inserted succesfully.</p>";
     }
 
     /**

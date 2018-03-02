@@ -1,0 +1,9 @@
+body {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 1.0;
+}
+
+#navbar, #head {
+      background-color: #d4d3cc;
+}

@@ -80,13 +80,12 @@ $f3->route('GET|POST /setup/@part', function($f3, $params) {
             $database->memberInsert($user);
             echo Template::instance()->render('pages/setup/profileSummary.php');
     }
+});
 
-    $f3->route('GET /admin', function($f3){
-
-        $database = new DatingDatabase();
-        $f3->set('memberList', $database->getAllMembers());
-        echo Template::instance()->render('pages/setup/profileSummary.php');
-    });
+$f3->route('GET /admin', function($f3){
+    $database = new DatingDatabase();
+    $f3->set('memberList', $database->getAllMembers());
+    echo Template::instance()->render('pages/admin.html');
 });
 
 //run fat free
