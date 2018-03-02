@@ -9,7 +9,8 @@
  */
 
 //reuire the autoload file
-require_once('vendor/autoload.php');
+require_once 'vendor/autoload.php';
+require_once '/home/mhernand/config.php';
 
 //start a session
 session_start();
@@ -72,22 +73,8 @@ $f3->route('GET|POST /setup/@part', function($f3, $params) {
             $f3->set('bio', $user->getBio());
             $f3->set('isPremium', $user->isPremium());
 
-            if($f3->get('isPremium')) {
-
-                $interests = "";
-                $userInterests = $user->getInterests();
-                //loops through the multiple interest options and adds the selected
-                foreach ($userInterests as $interest) {
-                    $interests = $interests.', '.$interest;
-                }
-
-
-                print $interests;
-
-                //gets rid of comma initially created
-                $interests = substr($interests, 1);
-                $f3->set('interests', $interests);
-            }
+            if($f3->get('isPremium'))
+                $f3->set('interests', $user->getInterests());
 
             echo Template::instance()->render('pages/setup/profileSummary.php');
     }

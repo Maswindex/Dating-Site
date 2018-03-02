@@ -215,14 +215,15 @@ if(isset($_POST['submit'])){
                     if(!validIndoor($indoor_act, $f3))
                         $errors['indoor'] = 'Please select from the indoor options presented';
                 }
-                $user->setInterests($interests);
+
+                $user->setInterests(implode(", ", $interests));
             }
 
             //no errors
             if(sizeof($errors) == 0){
-                //print_r($interests); echo '<--interests';
-                $_SESSION['user'] = $user;
 
+                //save the updated member to session
+                $_SESSION['user'] = $user;
 
                 //change the page
                 header( "Location: ./setup-summary" );

@@ -10,8 +10,7 @@ class PremiumMember extends Member
 {
     private static $_outdoor_interests = array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing');
     private static $_indoor_interests = array('tv', 'movies', 'cooking', 'puzzles', 'reading', 'playing cards', 'board games', 'video games');
-
-    private $interests = [];
+    private $interests;
 
     /**
      * PremiumMember constructor.
@@ -30,7 +29,7 @@ class PremiumMember extends Member
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getInterests()
     {
@@ -38,7 +37,7 @@ class PremiumMember extends Member
     }
 
     /**
-     * @param array $interests
+     * @param string $interests
      */
     public function setInterests($interests)
     {
