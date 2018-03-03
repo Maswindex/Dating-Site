@@ -15,7 +15,7 @@
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/home-styles.css">
+    <link rel="stylesheet" href="../styles/basicStyles.css">
 </head>
 <body>
 <div class="container mx-auto px-0 ">
@@ -25,40 +25,84 @@
         <h4 class="navbar-text">
             My Dating Site
         </h4>
+        <h6><a href="../admin" class="btn btn-secondary">Admin Page</a></h6>
     </nav>
 
     <!-- Main Content Section -->
     <div class="row">
-        <div class="mx-auto container p-4 border border-secondary rounded">
+        <div class="mx-auto container p-4 border border-secondary rounded" id="main-content">
             <h1>Interests</h1><small class="text-danger">{{@no_select_err}} {{@indoor_err}} {{@outdoor_err}}</small><hr>
 
             <form action="#" method="post">
                 <div class="row p-4">
 
-                    <label class="font-weight-bold form-label">Out-Door Interests</label>
+                    <label class="font-weight-bold form-label">In-Door Interests</label>
                     <div class="container border rounded pt-3" id="outdoor_ops">
                         <div class="form-group form-check-inline">
                             <repeat group="{{@indoor_ops}}" value="{{@activity}}">
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="indoor[]"
-                                    value="{{@activity}}">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">{{@activity}}</span>
+
+                                    <check if="!empty($_POST[indoor])">
+                                        <true>
+                                            <check if="in_array({{@activity}}, $_POST[indoor])">
+                                                <true>
+                                                    <input type="checkbox" class="custom-control-input" checked name="indoor[]"
+                                                           value="{{@activity}}">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{{@activity}}</span>
+                                                </true>
+                                                <false>
+                                                    <input type="checkbox" class="custom-control-input" name="indoor[]"
+                                                           value="{{@activity}}">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{{@activity}}</span>
+                                                </false>
+                                            </check>
+                                        </true>
+                                        <false>
+                                            <input type="checkbox" class="custom-control-input" name="indoor[]"
+                                                   value="{{@activity}}">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">{{@activity}}</span>
+                                        </false>
+                                    </check>
+
                                 </label>
                             </repeat>
                         </div>
                     </div>
 
 
-                    <label class="font-weight-bold form-label">In-Door Interests</label>
+                    <label class="font-weight-bold form-label">Out-Door Interests</label>
                     <div class="container border rounded pt-3" id="indoor_ops">
                         <div class="form-group form-check-inline">
                             <repeat group="{{@outdoor_ops}}" value="{{@activity}}">
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="outdoor[]"
-                                    value="{{@activity}}">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">{{@activity}}</span>
+
+                                    <check if="!empty($_POST[outdoor])">
+                                        <true>
+                                            <check if="in_array({{@activity}}, $_POST[outdoor])">
+                                                <true>
+                                                    <input type="checkbox" class="custom-control-input" checked name="outdoor[]"
+                                                           value="{{@activity}}">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{{@activity}}</span>
+                                                </true>
+                                                <false>
+                                                    <input type="checkbox" class="custom-control-input" name="outdoor[]"
+                                                           value="{{@activity}}">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{{@activity}}</span>
+                                                </false>
+                                            </check>
+                                        </true>
+                                        <false>
+                                            <input type="checkbox" class="custom-control-input" name="outdoor[]"
+                                                   value="{{@activity}}">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">{{@activity}}</span>
+                                        </false>
+                                    </check>
                                 </label>
                             </repeat>
                         </div>

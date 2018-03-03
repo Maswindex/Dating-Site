@@ -14,7 +14,7 @@
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/home-styles.css">
+    <link rel="stylesheet" href="../styles/basicStyles.css">
 </head>
 <body>
 <div class="container mx-auto px-0 ">
@@ -24,11 +24,12 @@
         <h4 class="navbar-text">
             My Dating Site
         </h4>
+        <h6><a href="../admin" class="btn btn-secondary">Admin Page</a></h6>
     </nav>
 
     <!-- Main Content Section -->
     <div class="row">
-        <div class="mx-auto container p-4 border border-secondary rounded">
+        <div class="mx-auto container p-4 border border-secondary rounded" id="main-content">
             <h1>Profile</h1><hr>
 
             <form action="#" method="post">
@@ -46,15 +47,20 @@
                         <!--State-->
                         <label class="form-label font-weight-bold mb-1">
                             State <small class="text-danger">{{@state_err}}</small></label><br>
+
+                        <!--Selecting a state-->
                         <select class="custom-select" name="state">
+
                             <option>Select a state</option>
-                            <repeat group="{{@states}}" value="{{@indState}}">
+                            <repeat group="{{@states}}" value="{{@indState}}" key="{{@statekey}}">
 
                                 <!--Previouly selected option-->
-                                <check if="{{@indState}}=={{@state}}">
-                                    <option value="{{@indState}}" selected>{{@indState}}</option>
+                                <check if="{{@statekey}}=={{@state}}">
+                                    <option value="{{@statekey}}" selected>{{@indState}}</option>
                                 </check>
-                                <option value="{{@indState}}">{{@indState}}</option>
+
+                                <option value="{{@statekey}}">{{@indState}}</option>
+
                             </repeat>
                         </select><br>
 
@@ -63,28 +69,28 @@
                             Seeking <small class="text-danger">{{@seeking_err}}</small></label><br>
                         <div class="form-check form-check-inline"><!--Male-->
                             <label class="form-check-label">
-                                <check if="{{@seeking}}==male">
+                                <check if="{{@seeking}}==M">
                                     <true>
                                         <input class="form-check-input" type="radio"
-                                               name="seeking" value="male" checked="checked">
+                                               name="seeking" value="M" checked="checked">
                                         Male</label></div>
                                     </true>
                                     <false>
                                         <input class="form-check-input" type="radio"
-                                               name="seeking" value="male"> Male
+                                               name="seeking" value="M"> Male
                                     </false>
                                 </check></label></div>
                         <div class="form-check form-check-inline"><!--Female-->
                             <label class="form-check-label">
-                                <check if="{{@seeking}}==female">
+                                <check if="{{@seeking}}==F">
                                     <true>
                                         <input class="form-check-input" type="radio"
-                                               name="seeking" value="female" checked="checked">
+                                               name="seeking" value="F" checked="checked">
                                         Female</label></div>
                                     </true>
                                     <false>
                                         <input class="form-check-input" type="radio"
-                                               name="seeking" value="female"> Female
+                                               name="seeking" value="F"> Female
                                     </false>
                                 </check></label></div>
 

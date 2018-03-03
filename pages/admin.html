@@ -25,9 +25,8 @@
         <h4 class="navbar-text">
             My Dating Site
         </h4>
-        <h5 class="float-right">
-            Admin Page
-        </h5>
+        <h6><a href="./" class="btn btn-secondary">return</a></h6>
+
     </nav>
 
     <!-- Main Content Section -->
@@ -36,38 +35,55 @@
             <h1 class="display-3">Member Summary</h1><hr>
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">State</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Seeking</th>
-                    <th scope="col">Premium</th>
-                    <th scope="col">Interests</th>
-                </tr>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Seeking</th>
+                        <th scope="col">Premium</th>
+                        <th scope="col">Interests</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <repeat group="{{ @memberList }}" value="{{@member}}">
-                <tr>
-                    <th scope="row">{{@member['member_id']}}</th>
-                    <td>{{@member['fname']}} {{@member['lname']}}</td>
-                    <td>{{@member['age']}}</td><td>{{@member['phone']}}</td>
-                    <td>{{@member['email']}}</td>
-                    <td>{{@member['state']}}</td>
-                    <td>{{@member['gender']}}</td>
-                    <td>{{@member['seeking']}}</td>
-                    <td>{{@member['premium']}}</td>
-                    <td>{{@member['interests']}}</td>
-                </tr>
-                </repeat>
+                    <repeat group="{{ @memberList }}" value="{{@member}}">
+                        <tr>
+                            <th scope="row">{{@member['member_id']}}</th>
+                            <td>{{@member['fname']}} {{@member['lname']}}</td>
+                            <td>{{@member['age']}}</td><td>{{@member['phone']}}</td>
+                            <td>{{@member['email']}}</td>
+                            <td>{{@member['state']}}</td>
+                            <td>{{@member['gender']}}</td>
+                            <td>{{@member['seeking']}}</td>
+
+                            <check if="{{@member['premium']}}">
+                                <true>
+                                    <td>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" onclick="return false;" checked>
+                                            <span class="custom-control-indicator"></span>
+                                        </label>
+                                    </td>
+                                </true>
+                                <false>
+                                    <td>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" onclick="return false;">
+                                            <span class="custom-control-indicator"></span>
+                                        </label>
+                                    </td>
+                                </false>
+                            </check>
+                            <td>{{@member['interests']}}</td>
+                        </tr>
+                    </repeat>
                 </tbody>
             </table>
         </div>
     </div>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

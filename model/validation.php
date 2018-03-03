@@ -21,12 +21,12 @@ function validAge($age)
 
 function validGender($gender)
 {
-    return ($gender == 'male' || $gender == 'female')&&!empty($gender);
+    return ($gender == 'M' || $gender == 'F')&&!empty($gender);
 }
 
 function validPhone($phone)
 {
-    $pattern = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
+    $pattern = "/^[0-9]{3}-?[0-9]{3}-?[0-9]{4}$/";
 
     return preg_match($pattern, $phone)&&!empty($phone);
 }
@@ -40,7 +40,7 @@ function validEmail($email)
 
 function validState($state, $f3)
 {
-    return in_array($state, $f3->get('states'))&&!empty($state);
+    return array_key_exists($state, $f3->get('states'))&&!empty($state);
 }
 
 function validOutdoor($selection, $f3)
@@ -66,7 +66,7 @@ if(isset($_POST['submit'])){
             $fname = strip_tags($_POST['fname']);
             $lname = strip_tags($_POST['lname']);
             $age = strip_tags($_POST['age']);
-            $gender = strip_tags($_POST['gender']);
+            $gender = strtoupper(strip_tags($_POST['gender']));
             $phone = strip_tags($_POST['phone']);
 
 
@@ -137,9 +137,9 @@ if(isset($_POST['submit'])){
         //On the profile setup page
         case 'profile':
 
-            $email = strip_tags($_POST['email']);
-            $state = strip_tags($_POST['state']);
-            $seeking = strip_tags($_POST['seeking']);
+            $email = strtolower(strip_tags($_POST['email']));
+            $state = strtoupper(strip_tags($_POST['state']));
+            $seeking = strtoupper(strip_tags($_POST['seeking']));
             $bio = strip_tags($_POST['bio']);
 
             //needed to make forms sticky
@@ -171,7 +171,6 @@ if(isset($_POST['submit'])){
 
                 //change the page
                 if($user->isPremium())
-
                     header( "Location: ./interests" );
                 else
                     header( "Location: ./setup-summary" );
@@ -215,7 +214,6 @@ if(isset($_POST['submit'])){
                     if(!validIndoor($indoor_act, $f3))
                         $errors['indoor'] = 'Please select from the indoor options presented';
                 }
-
                 $user->setInterests(implode(", ", $interests));
             }
 

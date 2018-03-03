@@ -95,7 +95,7 @@ class DatingDatabase
             return;
         }
 
-        $sql = "SELECT * FROM Members";
+        $sql = "SELECT * FROM Members ORDER BY lname";
 
         $statement = $dbh->prepare($sql);
         $statement->execute();

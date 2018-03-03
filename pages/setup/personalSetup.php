@@ -15,7 +15,7 @@
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/home-styles.css">
+    <link rel="stylesheet" href="../styles/basicStyles.css">
 </head>
 <body>
 <div class="container mx-auto px-0">
@@ -25,11 +25,12 @@
         <h4 class="navbar-text">
             My Dating Site
         </h4>
+        <h6><a href="../admin" class="btn btn-secondary">Admin Page</a></h6>
     </nav>
 
     <!-- Main Content Section -->
     <div class="row">
-        <div class="mx-auto container p-4 border border-secondary rounded">
+        <div class="mx-auto container p-4 border border-secondary rounded" id="main-content">
             <h1>Personal Information</h1><hr>
 
             <form action="#" method="post">
@@ -68,28 +69,28 @@
                             Gender <small class="text-danger">{{@gender_err}}</small></label><br>
                         <div class="form-check form-check-inline"><!--Male-->
                             <label class="form-check-label">
-                                <check if="{{@gender}}==male">
+                                <check if="{{@gender}}==M">
                                     <true>
                                         <input class="form-check-input" type="radio"
-                                               name="gender" value="male" checked="checked">
+                                               name="gender" value="M" checked="checked">
                                         Male
                                     </true>
                                     <false>
                                         <input class="form-check-input" type="radio"
-                                               name="gender" value="male"> Male
+                                               name="gender" value="M"> Male
                                     </false>
                                 </check></label></div>
                                 <div class="form-check form-check-inline"><!--Female-->
                                     <label class="form-check-label">
-                                        <check if="{{@gender}}==female">
+                                        <check if="{{@gender}}==F">
                                             <true>
                                                 <input class="form-check-input" type="radio"
-                                                       name="gender" value="female" checked="checked">
+                                                       name="gender" value="F" checked="checked">
                                                 Female
                                             </true>
                                             <false>
                                                 <input class="form-check-input" type="radio"
-                                                    name="gender" value="female"> Female
+                                                    name="gender" value="F"> Female
                                             </false>
                                         </check></label></div>
 

@@ -5,5 +5,13 @@ body {
 }
 
 #navbar, #head {
-      background-color: #d4d3cc;
+      background-color: #e6e6e6;
+}
+
+#main-content {
+    background-color: #f4f4f4;
+}
+
+.desc {
+    font-size: 18px;
 }

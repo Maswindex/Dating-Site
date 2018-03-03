@@ -15,7 +15,7 @@
     <title>Dating Site</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/home-styles.css">
+    <link rel="stylesheet" href="../styles/basicStyles.css">
 </head>
 <body>
 <div class="container mx-auto px-0 ">
@@ -25,12 +25,13 @@
         <h4 class="navbar-text">
             My Dating Site
         </h4>
+        <h6><a href="../admin" class="btn btn-secondary">Admin Page</a></h6>
     </nav>
 
     <!-- Main Content Section -->
     <div class="row">
         <div class="col col-8 col-offset-2 mx-auto container
-                    p-4 border border-secondary rounded">
+                    p-4 border border-secondary rounded" id="main-content">
             <div class="row">
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
